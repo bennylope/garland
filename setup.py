@@ -1,11 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
+import sys
 
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
+
+
+if sys.argv[-1] == 'publish':
+    os.system('python setup.py sdist upload')
+    os.system('python setup.py bdist_wheel upload')
+    sys.exit()
 
 
 readme = open('README.rst').read()
