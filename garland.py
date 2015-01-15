@@ -39,7 +39,7 @@ def mock_decorator(*a, **k):
     return real_decorator
 
 
-def tinsel(to_patch, module_name):
+def tinsel(to_patch, module_name, decorator=mock_decorator):
     """
     Decorator for simple in-place decorator mocking for tests
 
@@ -47,14 +47,15 @@ def tinsel(to_patch, module_name):
     :param module_name: complete string path of the module to reload
     :return:
     """
-    def decorator(function):
+    def fn_decorator(function):
         def wrapper(*args, **kwargs):
-            with patch(to_patch, mock_decorator):
+            with patch(to_patch, decorator):
                 m = importlib.import_module(module_name)
                 importlib.reload(m)
                 function(*args, **kwargs)
 
             importlib.reload(m)
         return wrapper
-    return decorator
+    return fn_decorator
+
 
