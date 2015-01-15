@@ -4,9 +4,14 @@ __author__ = 'Ben Lopatin'
 __email__ = 'ben@wellfire.co'
 __version__ = '0.1.0'
 
-
+import sys
 import importlib
-from unittest.mock import patch
+
+if sys.version_info.major == 3:
+    from importlib import reload  # Common interface
+    from unittest.mock import patch
+else:
+    from mock import patch
 
 
 def mock_decorator(*a, **k):
@@ -51,10 +56,10 @@ def tinsel(to_patch, module_name, decorator=mock_decorator):
         def wrapper(*args, **kwargs):
             with patch(to_patch, decorator):
                 m = importlib.import_module(module_name)
-                importlib.reload(m)
+                reload(m)
                 function(*args, **kwargs)
 
-            importlib.reload(m)
+            reload(m)
         return wrapper
     return fn_decorator
 

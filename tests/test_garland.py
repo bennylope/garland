@@ -56,6 +56,5 @@ class TestFunctionDecoration(unittest.TestCase):
         self.assertEqual(examples.dictionary(), 90)
 
 
-
 if __name__ == '__main__':
     unittest.main()
