@@ -11,12 +11,8 @@ except ImportError:
 readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
-requirements = [
-    # TODO: put package requirements here
-]
-
 test_requirements = [
-    # TODO: put package test requirements here
+    'mock',  # For older Python versions
 ]
 
 setup(
@@ -32,7 +28,6 @@ setup(
     #    'garland',
     #],
     include_package_data=True,
-    install_requires=requirements,
     license="BSD",
     zip_safe=False,
     keywords='garland',
