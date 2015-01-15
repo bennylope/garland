@@ -12,6 +12,7 @@ import unittest
 import garland
 
 from . import examples
+from . import examples as qualfied_examples
 
 
 class TestReload(unittest.TestCase):
@@ -38,6 +39,10 @@ class TestReload(unittest.TestCase):
     @garland.tinsel('tests.decorators.with_params', 'tests.examples')
     def test_kwarg_params(self):
         self.assertEqual(examples.bar(), "bar")
+
+    @garland.tinsel('tests.decorators.with_params', 'tests.examples')
+    def test_qualified_import(self):
+        self.assertEqual(qualfied_examples.bar(), "bar")
 
 
 if __name__ == '__main__':
