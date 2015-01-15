@@ -13,8 +13,9 @@ makes mocking them a bit more challenging.
 Usage
 =====
 
-Provided you have a function like so::
+Provided you have a function like so:
 
+.. code:: python
 
     @my_decorator
     def something_cool(*args, **kwargs):
@@ -22,7 +23,9 @@ Provided you have a function like so::
         return some_var
 
 Where your `my_decoroator` decorator is defined in another module, you can mock
-`my_decorator` so that you can test just the end decorated function.::
+`my_decorator` so that you can test just the end decorated function.
+
+.. code:: python
 
     @garland.tinsel('utils.decorators.my_decorator', 'very_cool.module')
     def test_something_cool(self):
