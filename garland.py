@@ -14,17 +14,17 @@ def mock_decorator(*a, **k):
     An 'empty' decorator that returns the underlying function.
 
     """
-    # TODO handle a decorator that takes kwargs
     # This is a decorator without parameters, e.g.
     #
     # @login_required
     # def some_view(request):
     #     ...
     #
-    if callable(a[0]):
-        def wrapper(*args, **kwargs):
-            return a[0](*args, **kwargs)
-        return wrapper
+    if a:
+        if callable(a[0]):
+            def wrapper(*args, **kwargs):
+                return a[0](*args, **kwargs)
+            return wrapper
 
     # This is a decorator with parameters, e.g.
     #
@@ -49,14 +49,9 @@ def tinsel(to_patch, to_load):
     """
     def decorator(function):
         def wrapper(*args, **kwargs):
-            # Load
-            # PATCH HERE
-            with patch(to_patch, mock_decorator) as patched:
+            with patch(to_patch, mock_decorator):
                 m = importlib.import_module(to_load)
                 importlib.reload(m)
-                print(m)
-                print(patched)
-                print(dir(function))
                 function(*args, **kwargs)
 
             importlib.reload(m)
