@@ -3,11 +3,17 @@
 import os
 import sys
 
-
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
+
+
+with open("garland.py", "r") as module_file:
+    for line in module_file:
+        if line.startswith("__version__"):
+            version_string = line.split("=")[1]
+            version = version_string.strip().replace("'", "")
 
 
 if sys.argv[-1] == 'publish':
@@ -25,16 +31,13 @@ test_requirements = [
 
 setup(
     name='garland',
-    version='0.1.0',
+    version=version,
     description='Python decorator mocking.',
     long_description=readme + '\n\n' + history,
     author='Ben Lopatin',
     author_email='ben@wellfire.co',
     url='https://github.com/bennylope/garland',
     py_modules=['garland'],
-    #packages=[
-    #    'garland',
-    #],
     include_package_data=True,
     license="BSD",
     zip_safe=False,
