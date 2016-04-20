@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+Garland: for unwrapping decorators.
+"""
+
 __author__ = 'Ben Lopatin'
 __email__ = 'ben@wellfire.co'
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 import sys
 import importlib
@@ -16,8 +20,9 @@ else:
 
 def mock_decorator(*a, **k):
     """
-    An 'empty' decorator that returns the underlying function.
+    An pass-through decorator that returns the underlying function.
 
+    This is used as the default for replacing decorators.
     """
     # This is a decorator without parameters, e.g.
     #
@@ -26,6 +31,8 @@ def mock_decorator(*a, **k):
     #     ...
     #
     if a:
+        # This could fail in the instance where a callable argument is passed
+        # as a parameter to the decorator!
         if callable(a[0]):
             def wrapper(*args, **kwargs):
                 return a[0](*args, **kwargs)
@@ -48,9 +55,16 @@ def tinsel(to_patch, module_name, decorator=mock_decorator):
     """
     Decorator for simple in-place decorator mocking for tests
 
-    :param to_patch: string path of the function to patch
-    :param module_name: complete string path of the module to reload
-    :return:
+    Args:
+        to_patch: the string path of the function to patch
+        module_name: complete string path of the module to reload
+        decorator (optional): replacement decorator. By default a pass-through
+            will be used.
+
+    Returns:
+        A wrapped test function, during the context of execution the specified
+        path is patched.
+
     """
     def fn_decorator(function):
         def wrapper(*args, **kwargs):
@@ -62,5 +76,3 @@ def tinsel(to_patch, module_name, decorator=mock_decorator):
             reload(m)
         return wrapper
     return fn_decorator
-
-
