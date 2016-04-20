@@ -21,3 +21,15 @@ def with_params(*ordered, **keyword):
             return function(*args, **kwargs)
         return wrapper
     return real_decorator
+
+
+def add_one(function):
+    def wrapper(*args, **kwargs):
+        return function(*args, **kwargs) + 1
+    return wrapper
+
+
+def add_two(function):
+    def wrapper(*args, **kwargs):
+        return function(*args, **kwargs) + 2
+    return wrapper

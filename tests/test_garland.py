@@ -56,5 +56,16 @@ class TestFunctionDecoration(unittest.TestCase):
         self.assertEqual(examples.dictionary(), 90)
 
 
+class TestStackedDecorators(unittest.TestCase):
+
+    def test_decoratored(self):
+        self.assertEqual(examples.no_addition(4), 7)
+
+    @garland.tinsel('tests.decorators.add_one', 'tests.examples')
+    @garland.tinsel('tests.decorators.add_two', 'tests.examples')
+    def test_remove_decorators(self):
+        self.assertEqual(examples.no_addition(4), 4)
+
+
 if __name__ == '__main__':
     unittest.main()

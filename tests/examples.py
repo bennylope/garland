@@ -7,7 +7,7 @@ Examples of decorated functions to use for testing.
 
 """
 
-from .decorators import no_params, with_params
+from .decorators import no_params, with_params, add_one, add_two
 
 
 @no_params
@@ -23,3 +23,9 @@ def world(*args, **kwargs):
 @with_params(text="foo!")
 def bar(*args, **kwargs):
     return "bar"
+
+
+@add_one
+@add_two
+def no_addition(x=0):
+    return x
