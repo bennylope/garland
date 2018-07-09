@@ -6,11 +6,11 @@ garland: Python decorator mocking
     :alt: Build Status
     :target: http://travis-ci.org/bennylope/garland
 
-.. image:: https://pypip.in/v/garland/badge.svg
+.. image:: https://img.shields.io/pypi/v/garland.svg
     :alt: Current PyPI release
     :target: https://crate.io/packages/garland
 
-.. image:: https://pypip.in/d/garland/badge.svg
+.. image:: https://img.shields.io/pypi/dm/garland.svg
     :alt: Download count
     :target: https://crate.io/packages/garland
 
